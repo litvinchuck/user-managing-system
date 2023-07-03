@@ -1,0 +1,2 @@
+-- Insert a default user with username: user and password: password
+insert into USER_DETAILS (id, email, name, password, enabled, credentials_non_expired, account_non_locked, account_non_expired) values (1, 'user', 'user', '$2a$10$n/spo9KvAqBCIwjH2iRbpuE4PC/OQV2H8EhpP.NqfspIyHmt5rhAq', true, true, true, true);

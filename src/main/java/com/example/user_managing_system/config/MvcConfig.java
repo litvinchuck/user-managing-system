@@ -1,4 +1,4 @@
-package com.example.usermanagingsystem.config;
+package com.example.user_managing_system.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -12,6 +12,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/home").setViewName("home");
         registry.addViewController("/").setViewName("home");
         registry.addViewController("/hello").setViewName("hello");
+        registry.addViewController("/start").setViewName("start");
         registry.addViewController("/login").setViewName("login");
     }
 }

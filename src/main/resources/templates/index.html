@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>User Managing System</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Welcome!</h1>
+    <div sec:authorize="not isAuthenticated()">
+        <a class="link-primary" th:href="@{/signup}">Register</a>
+        or <a class="link-primary" th:href="@{/login-form}">Login</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <a class="link-primary user-logout" href="javascript: document.logoutForm.submit()">Logout</a>
+        <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+            <input hidden type="submit" value="Sign Out"/>
+        </form>
+        <a class="link-primary" th:href="@{/user}">Edit User</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>User</title>
+</head>
+<body>
+<div class="container">
+    <a class="link-primary user-logout" href="javascript: document.logoutForm.submit()">Logout</a>
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        <input hidden type="submit" value="Sign Out"/>
+    </form>
+    <h1 class="title">User</h1>
+    <form
+            method="post"
+            role="form"
+            th:action="@{/update-user}"
+            th:object="${user}"
+            class="form-horizontal"
+    >
+
+        <div th:if="${param.success}" class="alert-success">
+            User updated Successfully!
+        </div>
+
+        <label class="form-label" for="name">Name</label>
+        <input class="form-control" id="name" name="name" type="text" th:value="${user.name}">
+        <p class="alert" th:errors="*{name}"
+           th:if="${#fields.hasErrors('name')}"></p>
+
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" id="email" name="email" type="email" th:value="${user.email}">
+        <p class="alert" th:errors="*{email}"
+           th:if="${#fields.hasErrors('email')}"></p>
+
+        <button class="btn btn-primary user" type="submit">Update</button>
+    </form>
+</div>
+</body>
+</html>

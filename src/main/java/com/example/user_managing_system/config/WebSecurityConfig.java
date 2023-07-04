@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,15 +22,25 @@ public class WebSecurityConfig {
         http
                 .userDetailsService(userDetailsService)
                 .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/css/**").permitAll()
                         .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/login-form").permitAll()
+                        .requestMatchers("/signup").permitAll()
                         .requestMatchers(toH2Console()).permitAll()
+                        .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/login")
+                        .loginPage("/login-form")
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/user", true)
+                        .failureUrl("/login-form?error")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll)
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                )
                 .headers((headersConfig -> headersConfig.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))) // Disable X-Frame-Options header for H2 console
                 .csrf(csrf -> csrf .ignoringRequestMatchers(toH2Console())); // Disable CSRF protection for H2 console
 

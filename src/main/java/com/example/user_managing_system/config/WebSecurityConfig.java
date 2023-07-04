@@ -23,10 +23,9 @@ public class WebSecurityConfig {
                 .userDetailsService(userDetailsService)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/", "/home").permitAll()
+                        .requestMatchers("/").permitAll()
                         .requestMatchers("/login-form").permitAll()
                         .requestMatchers("/signup").permitAll()
-                        .requestMatchers(toH2Console()).permitAll()
                         .requestMatchers("/user").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
                 )
@@ -40,9 +39,7 @@ public class WebSecurityConfig {
                 .logout(logout -> logout
                         .logoutSuccessUrl("/")
                         .permitAll()
-                )
-                .headers((headersConfig -> headersConfig.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))) // Disable X-Frame-Options header for H2 console
-                .csrf(csrf -> csrf .ignoringRequestMatchers(toH2Console())); // Disable CSRF protection for H2 console
+                );
 
         return http.build();
     }

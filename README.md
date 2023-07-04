@@ -93,3 +93,38 @@ java -jar "build\libs\user-managing-system -0.0.1-SNAPSHOT.jar"
 ```
 
 Wait a couple of seconds and you should be able to connect to the website. By default, the link points [here](http://localhost:8080/).
+
+## Project Structure
+
+```
+└── src
+    ├── main
+    │   ├── java
+    │   │   └── com
+    │   │       └── example
+    │   │           └── user_managing_system
+    │   │               ├── config                                  # Java Configuration Files
+    │   │               ├── controllers                             # View Controllers
+    │   │               ├── dto                                     # Model DTOs
+    │   │               ├── exceptions                              # Custom Exceptions
+    │   │               ├── models                                  # ORM Models
+    │   │               ├── repositories                            # JPA Repositories
+    │   │               ├── services                                # Service Classes
+    │   │               └── UserManagingSystemApplication.java      # Main Application Executable
+    │   └── resources
+    │       ├── application.properties                                    # Application properties file
+    │       ├── static
+    │       │   └── css                                             # CSS files
+    │       └── templates                                                 # Thymeleaf templates folder
+
+```
+
+## Technologies Used
+
+* Spring Boot
+* Spring Security
+* Spring Validation
+* Thymeleaf
+* modelmapper
+* lombok
+* postgresql

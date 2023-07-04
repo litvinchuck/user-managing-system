@@ -42,14 +42,7 @@ public class UserController {
             Model model,
             Authentication auth) {
 
-        Object principal = auth.getPrincipal();
-        String username;
-        if (principal instanceof User user) {
-            username = user.getUsername();
-        } else {
-            username = principal.toString();
-        }
-
+        String username = auth.getName();
         if (!username.equals(userDto.getEmail().toLowerCase())
                 && userDetailsService.userExistsByUsername(userDto.getEmail())) {
             logger.info("user {} already exists", userDto.getEmail());
